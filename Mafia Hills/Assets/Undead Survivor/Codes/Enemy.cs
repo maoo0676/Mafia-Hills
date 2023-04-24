@@ -161,6 +161,9 @@ public class Enemy : MonoBehaviour
         anim.SetBool("Dead", true);
         GameManager.instance.kill++;
         GameManager.instance.GetExp();
+
+        if (GameManager.instance.isLive)
+            AudioManager.instance.PlaySfx(AudioManager.Sfx.Dead);
     }
 
     void Dead()
@@ -178,5 +181,7 @@ public class Enemy : MonoBehaviour
             health -= (collision.GetComponent<Bullet>().damage * 3.0f);
             Debug.Log(collision.GetComponent<Bullet>().damage * 3.0f);
         }
+
+        AudioManager.instance.PlaySfx(AudioManager.Sfx.Hit);
     }
 }

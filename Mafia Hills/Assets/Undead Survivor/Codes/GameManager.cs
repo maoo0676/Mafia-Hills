@@ -48,6 +48,9 @@ public class GameManager : MonoBehaviour
         uiLevelUp.Select(playerId % 10);
         uiLevelUp.Select(10);
         Resume();
+
+        AudioManager.instance.PlayBgm(true);
+        AudioManager.instance.PlaySfx(AudioManager.Sfx.Select);
     }
 
     public void GameOver()
@@ -72,6 +75,9 @@ public class GameManager : MonoBehaviour
         uiResult.gameObject.SetActive(true);
         uiResult.Lose();
         Stop();
+
+        AudioManager.instance.PlayBgm(false);
+        AudioManager.instance.PlaySfx(AudioManager.Sfx.Lose);
     }
 
     public void GameVicory()
@@ -89,6 +95,10 @@ public class GameManager : MonoBehaviour
         uiResult.gameObject.SetActive(true);
         uiResult.Win();
         Stop();
+
+
+        AudioManager.instance.PlayBgm(false);
+        AudioManager.instance.PlaySfx(AudioManager.Sfx.Win);
     }
 
     public void GameRetry()
@@ -158,6 +168,7 @@ public class GameManager : MonoBehaviour
             a = Character.Length - 1;
         else
             a--;
+        AudioManager.instance.PlaySfx(AudioManager.Sfx.Select);
     }
 
     public void Right()
@@ -166,6 +177,7 @@ public class GameManager : MonoBehaviour
             a = 0;
         else
             a++;
+        AudioManager.instance.PlaySfx(AudioManager.Sfx.Select);
     }
 
     public void ButterFly()
