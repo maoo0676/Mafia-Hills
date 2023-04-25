@@ -9,9 +9,6 @@ public class Bullet : MonoBehaviour
     public int per;
     public int id;
 
-    float timer;
-    int waitingTime;
-
     Rigidbody2D rigid;
     public SpriteRenderer spriter;
 
@@ -22,24 +19,8 @@ public class Bullet : MonoBehaviour
         instance = this;
     }
 
-    void Start()
-    {
-        timer = 0.0f;
-        waitingTime = 2;
-    }
-
     void Update()
-    {
-        timer += Time.deltaTime;
-
-        if (timer > waitingTime) {
-            if (id != 0 && id != 5 && id != 6 && id != 7) {
-                rigid.velocity = Vector2.zero;
-                gameObject.SetActive(false);
-                timer = 0;
-            }
-        }
-        
+    {   
         if (id == 5) {
             transform.Translate(Vector3.down * 3 * Time.deltaTime, Space.World);
         }
@@ -49,10 +30,11 @@ public class Bullet : MonoBehaviour
     {
         if (id == 5)
             gameObject.SetActive(true);
+
         this.damage = damage;
         this.per = per;
 
-        if (per > -1)
+        if (per >= 0)
             rigid.velocity = dir * 15f;
 
     }
@@ -79,18 +61,26 @@ public class Bullet : MonoBehaviour
                 GameManager.instance.health += GameManager.instance.maxHealth / 100 * damage;
                 break;
             default:
-                if (!collision.CompareTag("Enemy") || per == -1 || id == 3 || id == 2)
+                if (!collision.CompareTag("Enemy") || per == -100 || id == 3 || id == 2)
                     return;
 
                 per--;
 
-                if (per == -1) {
+                if (per < 0) {
                     rigid.velocity = Vector2.zero;
                     Delete();
                 }
                 break;
         }
+    }
 
+    void OnTriggerExit2D(Collider2D collision)
+    {
+        if (!collision.CompareTag("Area") || per == -100)
+                    return;
+
+        rigid.velocity = Vector2.zero;
+        gameObject.SetActive(false);
     }
 
     void Delete()

@@ -78,5 +78,6 @@ public class LevelUp : MonoBehaviour
             count--;
             GameObject.Find("LevelUp (1)").GetComponent<LevelUp>().Hide();
         }
+        AudioManager.instance.PlaySfx(AudioManager.Sfx.Select);
     }
 }

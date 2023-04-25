@@ -259,21 +259,21 @@ public class Weapon : MonoBehaviour
                 Vector3 rotVec = Vector3.forward * 360 * index / count;
                 bullet.Rotate(rotVec);
                 bullet.Translate(bullet.up * 3.5f, Space.World);
-                bullet.GetComponent<Bullet>().Init(damage, -1, Vector3.zero);// -1 is Infinity per.
+                bullet.GetComponent<Bullet>().Init(damage, -100, Vector3.zero);// -100 is Infinity per.
             }
             else if (id == 7) {
                 bullet.localScale += scale;
                 bullet.Translate(bullet.up * 0f, Space.World);
-                bullet.GetComponent<Bullet>().Init(damage, -1, Vector3.zero);
+                bullet.GetComponent<Bullet>().Init(damage, -100, Vector3.zero);
             }
             else if (id == 5) {
                 bullet.Translate(bullet.up * 2.5f, Space.World);
-                bullet.GetComponent<Bullet>().Init(damage, -1, Vector3.zero);
+                bullet.GetComponent<Bullet>().Init(damage, -100, Vector3.zero);
             }
             else if (id == 6) {
                 bullet.Translate(bullet.right * -0.6f, Space.World);
                 bullet.Translate(bullet.up * 0.45f, Space.World);
-                bullet.GetComponent<Bullet>().Init(damage, -1, Vector3.zero);
+                bullet.GetComponent<Bullet>().Init(damage, -100, Vector3.zero);
             }
         }
     }
