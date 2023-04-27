@@ -40,6 +40,8 @@ public class LevelUp : MonoBehaviour
 
     void Next()
     {
+        int itemsLength = 10;
+
         foreach (Item item in items) {
             item.gameObject.SetActive(false);
         }
@@ -50,7 +52,9 @@ public class LevelUp : MonoBehaviour
             ran[1] = Random.Range(0, items.Length);
             ran[2] = Random.Range(0, items.Length);
 
-            if (ran[0] != ran[1] && ran[1] != ran[2] && ran[0] != ran[2])
+            if (ran[0] != ran[1] && ran[1] != ran[2] && ran[0] != ran[2]
+                && ran[0] != 10 && ran[1] != 10 && ran[2] != 10
+                && ran[0] != 8 && ran[1] != 8 && ran[2] != 8)
                 break;
         }
 
@@ -65,6 +69,7 @@ public class LevelUp : MonoBehaviour
             }
         }
 
+        Debug.Log(items.Length);
     }
     public void GearClick()
     {

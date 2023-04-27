@@ -12,23 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b274925d1ecc7cb48b27d6247502d4af, type: 3}
   m_Name: Item 9
   m_EditorClassIdentifier: 
-  itemType: 4
+  itemType: 0
   itemId: 9
   itemName: "\uBD93"
-  itemDesc: "\uCCB4\uB825 \uBAA8\uB450 \uD68C\uBCF5"
-  itemIcon: {fileID: -762074860, guid: 6fa12e290bae30b42b35c6432d07c287, type: 3}
-  baseDamage: 0
-  baseCount: 0
+  itemDesc: "\uB370\uBBF8\uC9C0 {0} \uC99D\uAC00\n\uBD93 \uAC1C\uC218 {1] \uC99D\uAC00"
+  itemIcon: {fileID: 927338625, guid: 6fa12e290bae30b42b35c6432d07c287, type: 3}
+  baseDamage: 40
+  baseCount: 1
   damages:
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  counts: 00000000000000000000000000000000000000000000000000000000000000000000000000000000
-  projectile: {fileID: 0}
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  counts: 0000000000000000010000000000000000000000010000000000000000000000
+  projectile: {fileID: 3064194975346825009, guid: dd1c824a98696584993155ab762b0626, type: 3}

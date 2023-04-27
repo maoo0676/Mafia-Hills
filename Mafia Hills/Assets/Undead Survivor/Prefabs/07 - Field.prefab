@@ -436,6 +436,8 @@ MonoBehaviour:
   damage: 0
   per: 0
   id: 7
+  timer: 0
+  spriter: {fileID: 0}
 --- !u!1 &6430021822411695848
 GameObject:
   m_ObjectHideFlags: 0

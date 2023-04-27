@@ -9,6 +9,9 @@ public class Bullet : MonoBehaviour
     public int per;
     public int id;
 
+    public float timer;
+    float maxTimer = 0.4f;
+
     Rigidbody2D rigid;
     public SpriteRenderer spriter;
 
@@ -24,19 +27,31 @@ public class Bullet : MonoBehaviour
         if (id == 5) {
             transform.Translate(Vector3.down * 3 * Time.deltaTime, Space.World);
         }
+
+        if (id == 9) {
+            transform.Rotate(Vector3.back * 480 * Time.deltaTime, Space.World);
+
+            timer += Time.deltaTime;
+
+            if (timer > maxTimer) {
+                gameObject.SetActive(false);
+            }
+        }
     }
 
     public void Init(float damage, int per, Vector3 dir)
     {
-        if (id == 5)
+        if (id == 5 || id == 9) {
+            timer = 0f;
             gameObject.SetActive(true);
+        }
+            
 
         this.damage = damage;
         this.per = per;
 
         if (per >= 0)
             rigid.velocity = dir * 15f;
-
     }
 
     void OnTriggerEnter2D(Collider2D collision)

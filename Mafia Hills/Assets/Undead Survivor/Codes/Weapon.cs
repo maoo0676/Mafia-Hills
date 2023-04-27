@@ -107,6 +107,14 @@ public class Weapon : MonoBehaviour
             case 7:
                 transform.Rotate(Vector3.back * speed * Time.deltaTime);
                 break;
+            case 9:
+                timer += Time.deltaTime;
+
+                if (timer > speed) { 
+                    timer = 0f;
+                    Batch();
+                }
+                break;
             case 10:
 
                 break;
@@ -148,6 +156,8 @@ public class Weapon : MonoBehaviour
                         
                         break;
                 }
+
+                AudioManager.instance.PlaySfx(AudioManager.Sfx.Range);
             }
             else
                 Debug.Log("재사용 대기 시간 : " + (skillSpeed - skillTimer));
@@ -173,6 +183,9 @@ public class Weapon : MonoBehaviour
             this.count -= count;
             scale.x = 0.25f;
             scale.y = 0.25f;
+            Batch();
+        }
+        if (id == 9) {
             Batch();
         }
 
@@ -231,6 +244,9 @@ public class Weapon : MonoBehaviour
                 speed = 0;
                 Batch();
                 break;
+            case 9:
+                speed = 2.0f;
+                break;
             default:
 
                 break;
@@ -275,6 +291,10 @@ public class Weapon : MonoBehaviour
                 bullet.Translate(bullet.up * 0.45f, Space.World);
                 bullet.GetComponent<Bullet>().Init(damage, -100, Vector3.zero);
             }
+            else if (id == 9) {
+                bullet.Translate(bullet.up * 0.7f, Space.World);
+                bullet.GetComponent<Bullet>().Init(damage, -100, Vector3.zero);
+            }
         }
     }
 
@@ -315,58 +335,81 @@ public class Weapon : MonoBehaviour
 
         if (id == 4 && scatter <= 0)
         {
-            Firefire(dir);
+            Firefire(dir, 0);
         }
         else if (id == 4 && scatter <= 2)
         {
-            Firefire(dirA);
+            Firefire(dirA, 0);
 
-            Firefire(dirB);
+            Firefire(dirB, 1);
         }
         else if (id == 4 && scatter <= 4)
         {
-            Firefire(dir);
+            Firefire(dir, 0);
 
-            Firefire(dir1);
+            Firefire(dir1, 1);
 
-            Firefire(dir2);
+            Firefire(dir2, 1);
         }
         else if (id == 4 && scatter <= 6)
         {
-            Firefire(dirA);
+            Firefire(dirA, 0);
 
-            Firefire(dirB);
+            Firefire(dirB, 1);
 
-            Firefire(dirC);
+            Firefire(dirC, 1);
 
-            Firefire(dirD);
+            Firefire(dirD, 1);
         }
         else if (id == 4 && scatter == 7)
         {
-            Firefire(dir);
+            Firefire(dir, 0);
 
-            Firefire(dir1);
+            Firefire(dir1, 1);
 
-            Firefire(dir2);
+            Firefire(dir2, 1);
 
-            Firefire(dir3);
+            Firefire(dir3, 1);
 
-            Firefire(dir4);
+            Firefire(dir4, 1);
         }
         else
         {
-            Firefire(dir);
+            Firefire(dir, 0);
         }
     }
 
-    void Firefire(Vector3 dir)
+    void Firefire(Vector3 dir, int a)
     {
         Transform bullet = GameManager.instance.pool.Get(prefabId).transform;
         bullet.position = transform.position;
         bullet.rotation = Quaternion.FromToRotation(Vector3.up, dir);
         bullet.GetComponent<Bullet>().Init(damage, count, dir);
 
-        AudioManager.instance.PlaySfx(AudioManager.Sfx.Range);
+        if (a == 0)
+            AudioManager.instance.PlaySfx(AudioManager.Sfx.Range);
+    }
+
+    void Swing()
+    {
+        
+        for (int index = 0; index < count; index++) {
+            Transform bullet; 
+
+            if (index < transform.childCount) {
+                bullet = transform.GetChild(index);
+            }
+            else { 
+                bullet = GameManager.instance.pool.Get(prefabId).transform;
+                bullet.parent = transform;   
+            }
+            
+            bullet.localPosition = Vector3.zero;
+            bullet.localRotation = Quaternion.identity;
+            
+            bullet.Translate(bullet.up * 0.7f, Space.World);
+            bullet.GetComponent<Bullet>().Init(damage, -100, Vector3.zero);// -100 is Infinity per.
+        }
     }
 
     void KevinSkill()
@@ -384,7 +427,7 @@ public class Weapon : MonoBehaviour
 
             dir01 = dir01.normalized;
             
-            Firefire(dir01);
+            Firefire(dir01, 1);
         }
 
         StartCoroutine(waiting(0, dir));
@@ -428,7 +471,7 @@ public class Weapon : MonoBehaviour
 
             dir = dir.normalized;
 
-            Firefire(dir);
+            Firefire(dir, 1);
         }
     }
 
@@ -452,7 +495,7 @@ public class Weapon : MonoBehaviour
             case 1:
                 yield return new WaitForSeconds(0.025f * xx);
 
-                Firefire(dir);
+                Firefire(dir, 1);
             break;
         }
     }
