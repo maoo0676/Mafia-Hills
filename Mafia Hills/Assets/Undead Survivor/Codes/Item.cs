@@ -47,8 +47,10 @@ public class Item : MonoBehaviour
                     textDesc.text = "데미지 " + data.damages[level] + " 증가";
                 else if(data.damages[level] == 0 && data.itemId == 7)
                     textDesc.text = "영역 넓이 증가";
-                /*else if(data.counts[level] == 0 && data.itemId == 9)
-                    textDesc.text = "데미지 " + data.damages[level] + " 증가";*/
+                else if(data.counts[level] == 0 && data.itemId == 9)
+                    textDesc.text = "데미지 " + data.damages[level] + " 증가";
+                else if(data.counts[level] == 1 && data.itemId == 9)
+                    textDesc.text = "붓 개수 " + data.counts[level] + " 증가";
                 else
                     textDesc.text = string.Format(data.itemDesc, data.damages[level], data.counts[level]);
                 break;

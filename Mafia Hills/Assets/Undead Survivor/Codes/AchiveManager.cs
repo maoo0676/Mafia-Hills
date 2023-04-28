@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class AchiveManager : MonoBehaviour
 {
+    public static AchiveManager instance;
+
     public GameObject[] lockCharacter;
     public GameObject[] unlockCharacter;
     public GameObject uiNotice;
@@ -13,8 +15,12 @@ public class AchiveManager : MonoBehaviour
     Achive[] achives;
     WaitForSecondsRealtime wait;
 
+    public bool[] lockSkill = new bool[3];
+
     void Awake()
     {
+        instance = this;
+
         achives = (Achive[])Enum.GetValues(typeof(Achive));
         wait = new WaitForSecondsRealtime(5);
 
@@ -34,6 +40,9 @@ public class AchiveManager : MonoBehaviour
 
     void Start()
     {
+        for (int index = 0; index < lockCharacter.Length; index++) {
+            lockSkill[index] = false;
+        }
         UnlockCharacter();
     }
 
@@ -42,6 +51,9 @@ public class AchiveManager : MonoBehaviour
         for (int index = 0; index < lockCharacter.Length; index++) {
             string achiveName = achives[index].ToString();
             bool isUnlock = PlayerPrefs.GetInt(achiveName) == 1;
+            if (PlayerPrefs.GetInt(achiveName) == 1) {
+                lockSkill[index] = true;
+            }
             lockCharacter[index].SetActive(!isUnlock);
             unlockCharacter[index].SetActive(isUnlock);
         }

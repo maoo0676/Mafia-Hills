@@ -40,8 +40,6 @@ public class LevelUp : MonoBehaviour
 
     void Next()
     {
-        int itemsLength = 10;
-
         foreach (Item item in items) {
             item.gameObject.SetActive(false);
         }
@@ -53,9 +51,31 @@ public class LevelUp : MonoBehaviour
             ran[2] = Random.Range(0, items.Length);
 
             if (ran[0] != ran[1] && ran[1] != ran[2] && ran[0] != ran[2]
-                && ran[0] != 10 && ran[1] != 10 && ran[2] != 10
-                && ran[0] != 8 && ran[1] != 8 && ran[2] != 8)
-                break;
+            && ran[0] != 10 && ran[1] != 10 && ran[2] != 10
+            && ran[0] != 8 && ran[1] != 8 && ran[2] != 8) {
+                if (!AchiveManager.instance.lockSkill[2]
+                && !AchiveManager.instance.lockSkill[1]
+                && !AchiveManager.instance.lockSkill[0]) {
+                    if (ran[0] != 9 && ran[1] != 9 && ran[2] != 9
+                    && ran[0] != 7 && ran[1] != 7 && ran[2] != 7
+                    && ran[0] != 4 && ran[1] != 4 && ran[2] != 4)
+                    break;
+                }
+                else if (!AchiveManager.instance.lockSkill[2]
+                && !AchiveManager.instance.lockSkill[1]) {
+                    if (ran[0] != 9 && ran[1] != 9 && ran[2] != 9
+                    && ran[0] != 7 && ran[1] != 7 && ran[2] != 7)
+                    break;
+                }
+                else if (!AchiveManager.instance.lockSkill[2]) {
+                    if (ran[0] != 9 && ran[1] != 9 && ran[2] != 9)
+                    break;
+                }
+                else
+                    break;
+
+            }
+            
         }
 
         for (int index = 0; index < ran.Length; index++) {
