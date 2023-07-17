@@ -18,19 +18,22 @@ public class LevelUp : MonoBehaviour
     {
         if (count != 1) { 
             Next();
+            AudioManager.instance.PlaySfx(AudioManager.Sfx.LevelUp);
+            AudioManager.instance.EffectBgm(true);
         }
         rect.localScale = Vector3.one;
         GameManager.instance.Stop();
-        AudioManager.instance.PlaySfx(AudioManager.Sfx.LevelUp);
-        AudioManager.instance.EffectBgm(true);
     }
 
     public void Hide()
     {
         rect.localScale = Vector3.zero;
         GameManager.instance.Resume();
-        AudioManager.instance.PlaySfx(AudioManager.Sfx.Select);
-        AudioManager.instance.EffectBgm(false);
+        if (count != 1)
+        {
+            AudioManager.instance.PlaySfx(AudioManager.Sfx.Select);
+            AudioManager.instance.EffectBgm(false);
+        }
     }
 
     public void Select(int index)
@@ -96,12 +99,12 @@ public class LevelUp : MonoBehaviour
         if (count == 0)
         {
             count++;
-            GameObject.Find("LevelUp (1)").GetComponent<LevelUp>().Show();
+            GameObject.Find("GearUp").GetComponent<LevelUp>().Show();
         }
         else
         {
             count--;
-            GameObject.Find("LevelUp (1)").GetComponent<LevelUp>().Hide();
+            GameObject.Find("GearUp").GetComponent<LevelUp>().Hide();
         }
         AudioManager.instance.PlaySfx(AudioManager.Sfx.Select);
     }
