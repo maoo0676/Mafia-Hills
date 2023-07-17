@@ -28,13 +28,17 @@ public class Bullet : MonoBehaviour
             transform.Translate(Vector3.down * 3 * Time.deltaTime, Space.World);
         }
 
+        if (id == 6 && Weapon.instance.lifeCount == 1) {
+            gameObject.SetActive(true);
+        }
+
         if (id == 9) {
             transform.Rotate(Vector3.back * 480 * Time.deltaTime, Space.World);
 
             timer += Time.deltaTime;
 
             if (timer > maxTimer) {
-                gameObject.SetActive(false);
+                Delete();
             }
         }
     }
@@ -95,7 +99,7 @@ public class Bullet : MonoBehaviour
                     return;
 
         rigid.velocity = Vector2.zero;
-        gameObject.SetActive(false);
+        Delete();
     }
 
     void Delete()

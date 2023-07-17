@@ -11,7 +11,7 @@ public class AchiveManager : MonoBehaviour
     public GameObject[] unlockCharacter;
     public GameObject uiNotice;
     
-    enum Achive { UnlockLightSol, UnlockYeonbe, UnlockTwod }
+    enum Achive { UnlockLightSol, UnlockYeonbe, UnlockTwod, UnlockNani }
     Achive[] achives;
     WaitForSecondsRealtime wait;
 
@@ -79,6 +79,9 @@ public class AchiveManager : MonoBehaviour
                 break;
             case Achive.UnlockTwod:
                 isAchive = GameManager.instance.kill >= 50;
+                break;
+            case Achive.UnlockNani:
+                isAchive = GameManager.instance.kill >= 70;
                 break;
         }
 

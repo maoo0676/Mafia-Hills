@@ -43,6 +43,9 @@ public class Weapon : MonoBehaviour
             case 3:
                 skillSpeed = 6f;
                 break;
+            case 4:
+                skillSpeed = 6f;
+                break;
         }
     }
 
@@ -99,9 +102,11 @@ public class Weapon : MonoBehaviour
                 }
 
                 if (timer > this.damage) {
-                    if(lifeCount == 0)
+                    if(lifeCount == 0) {
                         timer = 0f;
                         lifeCount++;
+                    }
+                        
                 }
                 break;
             case 7:
@@ -153,7 +158,12 @@ public class Weapon : MonoBehaviour
                     case 3:
                         TwodSkill();
                         skillTimer = 0f;
-                        
+
+                        break;
+                    case 4:
+                        NanhiSkill();
+                        skillTimer = 0f;
+
                         break;
                 }
 
@@ -476,6 +486,11 @@ public class Weapon : MonoBehaviour
     }
 
     void TwodSkill()
+    {
+
+    }
+
+    void NanhiSkill()
     {
 
     }
